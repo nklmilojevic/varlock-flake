@@ -17,7 +17,7 @@
       ];
 
       perSystem =
-        { pkgs, system, ... }:
+        { pkgs, ... }:
         {
           packages = {
             varlock = pkgs.callPackage ./package.nix { };

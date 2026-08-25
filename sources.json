@@ -1,0 +1,21 @@
+{
+  "version": "1.17.1",
+  "platforms": {
+    "aarch64-linux": {
+      "url": "https://github.com/dmno-dev/varlock/releases/download/varlock%401.17.1/varlock-linux-arm64.tar.gz",
+      "hash": "sha256-cUsUKgJ0kLl3bGXDUZ2ZHTH6RjL2+0aP/hnzNOmZrD4="
+    },
+    "x86_64-linux": {
+      "url": "https://github.com/dmno-dev/varlock/releases/download/varlock%401.17.1/varlock-linux-x64.tar.gz",
+      "hash": "sha256-bTDjlj2jDk3r3kU+6+3c3II++O6gdE7Jw6IldM/KoNA="
+    },
+    "x86_64-darwin": {
+      "url": "https://github.com/dmno-dev/varlock/releases/download/varlock%401.17.1/varlock-macos-x64.tar.gz",
+      "hash": "sha256-lvGMrlIk/5nt0jwMH0x4Ivd+QZ6I0ByKtKAW01Ac20I="
+    },
+    "aarch64-darwin": {
+      "url": "https://github.com/dmno-dev/varlock/releases/download/varlock%401.17.1/varlock-macos-arm64.tar.gz",
+      "hash": "sha256-U0JB1wrvRVYxMeOcMnL1VxZaxbxF248OI8hPSfTu4vE="
+    }
+  }
+}

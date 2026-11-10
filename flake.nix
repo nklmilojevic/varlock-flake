@@ -18,16 +18,24 @@
 
       perSystem =
         { pkgs, ... }:
+        let
+          unwrapped = pkgs.callPackage ./package.nix { };
+          varlock = pkgs.callPackage ./wrapper.nix { } { package = unwrapped; };
+        in
         {
           packages = {
-            varlock = pkgs.callPackage ./package.nix { };
-            default = pkgs.callPackage ./package.nix { };
+            inherit varlock;
+            varlock-unwrapped = unwrapped;
+            default = varlock;
           };
+
+          checks.wrapper = import ./checks/wrapper.nix { inherit pkgs; };
         };
 
       flake = {
         overlays.default = final: prev: {
-          varlock = final.callPackage ./package.nix { };
+          varlock-unwrapped = final.callPackage ./package.nix { };
+          varlock = final.callPackage ./wrapper.nix { } { package = final.varlock-unwrapped; };
         };
 
         homeManagerModules.default = import ./home-module.nix;

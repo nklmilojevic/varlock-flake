@@ -13,9 +13,12 @@ in
 
     package = lib.mkOption {
       type = lib.types.package;
-      default = pkgs.callPackage ./package.nix { };
-      defaultText = lib.literalExpression "pkgs.callPackage ./package.nix { }";
-      description = "The varlock package to use.";
+      default = pkgs.callPackage ./wrapper.nix { } { package = pkgs.callPackage ./package.nix { }; };
+      defaultText = lib.literalExpression "varlock from this flake, wrapped for sefko";
+      description = ''
+        The varlock package to use. The default runs varlock through sefko when
+        sefko is installed. Set it to the flake's `varlock-unwrapped` to opt out.
+      '';
     };
 
     enableBinSymlink = lib.mkOption {

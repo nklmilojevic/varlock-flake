@@ -28,7 +28,7 @@ Then use `inputs.varlock.packages.${system}.default` wherever you need the packa
 nixpkgs.overlays = [ inputs.varlock.overlays.default ];
 ```
 
-This gives you `pkgs.varlock`.
+This gives you `pkgs.varlock` and `pkgs.varlock-unwrapped`.
 
 ### Home Manager
 
@@ -44,6 +44,18 @@ Options:
 
 - `programs.varlock.package` - which package to use, defaults to the one from this flake
 - `programs.varlock.enableBinSymlink` - symlink the binary to `~/.local/bin/varlock`, on by default on Linux
+
+## sefko
+
+`varlock run` asks 1Password for every `op()` value each time it starts. [sefko](https://github.com/nklmilojevic/sefko) keeps those values in memory, so you approve 1Password once instead of on every run.
+
+The `varlock` package here runs varlock through `sefko exec --if-trusted` when `sefko` is on your `PATH`. After `sefko trust` in a repository, varlock gets that repository's secrets from sefko's memory. Everything else stays the same:
+
+- Without sefko, or with a sefko that doesn't have `--if-trusted` (older than v0.3.0), it runs plain varlock.
+- In a repository you haven't trusted, it runs plain varlock and sefko prints a one-line note.
+- If the sefko agent isn't running, varlock reads 1Password itself as usual.
+
+To skip the wrapper entirely, use `packages.${system}.varlock-unwrapped` (or `pkgs.varlock-unwrapped` from the overlay).
 
 ## Why the symlink option
 
